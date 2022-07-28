@@ -1,10 +1,8 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import time
 
-from GKtests.pageObjects.placeorder import placeorder
-from GKtests.pageObjects.shopping import shopping
+from pageObjects.placeorder import placeorder
+from pageObjects.shopping import shopping
 from utilities.BaseClass import baseClass
 
 class TestShopping(baseClass):
