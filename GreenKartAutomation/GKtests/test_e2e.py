@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 import time
-
+from selenium.webdriver.common.keys import Keys
 from pageObjects.placeorder import placeorder
 from pageObjects.shopping import shopping
 from utilities.BaseClass import baseClass
@@ -11,28 +11,14 @@ class TestShopping(baseClass):
         shopobj = shopping(self.driver)
         items = shopobj.getItems()
         shopobj.waitforitems()
-        print(len(items))
-        for item in items:
-            item.click()
-        shopobj.scrolltoTop()
-        btn = shopobj.checkitems()
-        btn.click()
-        selecteditems = shopobj.itemschosen()
-        for item in selecteditems:
-            self.driver.execute_script("arguments[0].scrollIntoView();", item)
-            time.sleep(0.2)
-        costlyitems = shopobj.getcostlyitems()
-        for removeItem in costlyitems:
-            remove = removeItem.find_element(By.XPATH, "div/p[2]")
-            if int(remove.text) > 500:
-                print(remove.text)
-                removeItem.find_element(By.XPATH,"a").click()
-        shopobj.proceedCheckout()
+        self.clickitem(items)
+        self.scrolltoTop()
+        shopobj.checkitems()
+        shopobj.seeitemschosen()
+        shopobj.removecostlyitems()
 
-    def test_placeorder(self):
-        orderobj = placeorder(self.driver)
-        counts = orderobj.getquantity()
-        for count in counts:
-            if count.text == '1':
-                continue
-        print("All quantities are 1, no repetition")
+        orderob = shopobj.proceedCheckout()
+        orderob.checkredundantitems()
+        self.scrolltoBottom()
+        orderob.getpromocode()
+       # orderob.comparePrice()
