@@ -21,4 +21,5 @@ class TestShopping(baseClass):
         orderob.checkredundantitems()
         self.scrolltoBottom()
         orderob.getpromocode()
-       # orderob.comparePrice()
+        orderob.comparePrice()
+        orderob.orderItems()

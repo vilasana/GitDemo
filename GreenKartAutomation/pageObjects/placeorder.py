@@ -23,25 +23,30 @@ class placeorder:
 
     promocode = (By.XPATH, "//div[@id='root']/div/div/div/div/div/input")
     promobtn = (By.XPATH, "//div[@id='root']/div/div/div/div/div/button")
-    #pi = (By.CSS_SELECTOR, "//div[@id='root']/div/div/div/div/div/span")
+    pi = (By.XPATH, "//div[@id='root']/div/div/div/div/div/span")
     def getpromocode(self):
         self.driver.find_element(*placeorder.promocode).send_keys("rahulshettyacademy")
         self.driver.find_element(*placeorder.promobtn).click()
-        self.driver.implicitly_wait(8)
-        pi = self.driver.find_element(By.XPATH, "//div[@id='root']/div/div/div/div/div/span")
-        wait = WebDriverWait(self.driver, 10)
-        wait.until(EC.presence_of_element_located(pi))
+        self.driver.implicitly_wait(12)
+        promoinfo = self.driver.find_element(*placeorder.pi)
+        assert promoinfo.text == 'Code applied ..!'
 
-    #total = (By.XPATH,"//span[@class='totAmt']")
-    #disc = (By.XPATH,"//span[@class='discountAmt']")
-    #def comparePrice(self):
+    total = (By.XPATH,"//span[@class='totAmt']")
+    disc = (By.XPATH,"//span[@class='discountAmt']")
+    def comparePrice(self):
+        total = self.driver.find_element(*placeorder.total)
+        disc = self.driver.find_element(*placeorder.disc)
+        if total.text > disc.text :
+            print("Discount applied")
+        else:
+            print("Discount not valid")
 
-        #total = self.driver.find_element(*placeorder.total)
-        #disc = self.driver.find_element(*placeorder.disc)
+    #order = (By.CSS_SELECTOR, "div[class*='products'] div button") #CSS selector doesn't work. need to find out why
+    #order = (By.XPATH, "//div[@class='products']/div/button") #works fine
+    def orderItems(self):
+        #self.driver.find_element(*placeorder.order).click()
+        self.driver.find_element(By.XPATH,"//button[text()='Place Order']").click()
 
-       # if total.text > disc.text :
-       #     print("Discount applied")
-       # else:
-      #      print("Discount not valid")
+
 
 
