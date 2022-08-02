@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
+from pageObjects.finalpage import finalpage
 import time
 import pytest
 import openpyxl
@@ -46,7 +47,9 @@ class placeorder:
     def orderItems(self):
         #self.driver.find_element(*placeorder.order).click()
         self.driver.find_element(By.XPATH,"//button[text()='Place Order']").click()
-        
+        fp = finalpage(self.driver)
+        return fp
+
 
 
 

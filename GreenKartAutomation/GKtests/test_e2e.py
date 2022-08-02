@@ -22,4 +22,5 @@ class TestShopping(baseClass):
         self.scrolltoBottom()
         orderob.getpromocode()
         orderob.comparePrice()
-        orderob.orderItems()
+        fp = orderob.orderItems()
+        fp.choosecountry()
