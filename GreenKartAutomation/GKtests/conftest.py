@@ -10,14 +10,10 @@ global driver
 
 @pytest.fixture(scope="class")
 def getBrowser(request):
-    #if browser=="Chrome":
-
-    #if browser=="Firefox":
-        #driver = webdriver.Firefox()
-    #elif browser=="IE":
-    #    driver = webdriver.Ie()
     driver = webdriver.Chrome()
     driver.get("https://rahulshettyacademy.com/seleniumPractise/#/")
     driver.maximize_window()
     request.cls.driver = driver
+    yield
+    driver.close()
 
